@@ -1,0 +1,58 @@
+{
+  "user_id": "user_001",
+  "name": "Rahul Sharma",
+  "email": "rahul.sharma@example.com",
+  "profile_picture": "https://example.com/images/rahul.jpg",
+  "location": "Bangalore, Karnataka, India",
+  "age_range": "26-35",
+  "household_size": "3-4",
+  "housing_type": "Apartment",
+
+  "work_location": "Hybrid",
+  "office_distance_km": 12,
+  "primary_commute_mode": "Car (Hybrid)",
+  "secondary_transport": "Auto Rickshaw",
+  "car_make": "Maruti Suzuki",
+  "car_model": "Swift",
+  "car_year": 2022,
+  "car_fuel_type": "Petrol",
+  "car_avg_mileage_kmpl": 18,
+
+  "air_travel_frequency": "1-2 times/year",
+  "average_flight_distance": "Regional (500-2000km)",
+  "public_transit_availability": "Good",
+
+  "home_size": "1000-1500 sq ft",
+  "home_age": "5-20 years",
+  "primary_heating": "Electric",
+  "energy_provider_type": "Standard Grid",
+  "smart_home_features": ["Smart Thermostat", "Energy Monitor"],
+
+  "monthly_electricity_bill_inr": "₹1000-2000",
+  "heating_cooling_preference": "Energy Saver",
+  "water_heating": "Tank",
+
+  "primary_diet": "Flexitarian",
+  "meal_preparation": "Cook Most Meals",
+  "food_shopping": "Local/Organic Focus",
+  "food_waste": "Moderate",
+
+  "shopping_frequency": "Weekly",
+  "package_delivery": "1-2/week",
+  "clothing_purchases": "Seasonal",
+  "electronics": "Keep Until Broken",
+
+  "recycling_participation": "Usually",
+  "composting": "Occasional",
+  "plastic_usage": "Moderate Effort",
+  "reusable_items": ["Water Bottle", "Shopping Bags", "Food Containers"],
+
+  "environmental_awareness": "High",
+  "climate_action_experience": "Some Experience",
+  "motivation_level": "Moderately Motivated",
+
+  "primary_focus_areas": ["Carbon Reduction", "Cost Savings"],
+  "budget_for_changes_inr": "₹1500-5000/month",
+  "time_availability": "Moderate",
+  "lifestyle_change_tolerance": "Gradual Changes"
+}

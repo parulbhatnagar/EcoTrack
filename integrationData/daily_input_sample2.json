@@ -1,0 +1,85 @@
+{
+  "user_id": "user_001",
+  "date": "2025-06-01",
+  "transportation": {
+    "primary_mode": "Bicycle",
+    "distance_km": 8,
+    "traffic": "Light",
+    "secondary_trips": ["Social"],
+    "ride_sharing": false,
+    "delivery_services": ["Shopping"]
+  },
+  "energy_home": {
+    "heating_cooling": "Normal",
+    "hot_water": {
+      "shower_min": 10,
+      "baths": 1,
+      "laundry_loads": 2
+    },
+    "electronics": {
+      "screen_time_hrs": 5,
+      "gaming_hrs": 0,
+      "work_equipment_hrs": 3
+    },
+    "lighting": "Smart Lights"
+  },
+  "special_activities": ["Home office equipment usage", "Hosting guests"],
+  "food_consumption": {
+    "meals": {
+      "breakfast": "Home Cooked",
+      "lunch": "Restaurant",
+      "dinner": "Takeout",
+      "snacks": "Restaurant/Café"
+    },
+    "meat_servings": {
+      "beef": 0,
+      "pork": 1,
+      "chicken": 2
+    },
+    "plant_based_meals": 3,
+    "local_organic_pct": 70,
+    "food_waste": "Minimal"
+  },
+  "purchases": {
+    "online_orders": 2,
+    "package_size": "Large",
+    "in_store": "Chain store",
+    "impulse": ["Electronics", "Clothing"],
+    "sustainable_choices": ["Reusable bags", "Eco-friendly options"]
+  },
+  "waste": {
+    "general": "Small bag",
+    "recycling": "Large amount",
+    "composting": "Moderate",
+    "special": ["Hazardous materials"]
+  },
+  "plastic": {
+    "single_use": {
+      "water_bottles": 0,
+      "food_containers": 1,
+      "bags": 0
+    },
+    "avoided_plastics_count": 5,
+    "packaging_waste": "Minimal"
+  },
+  "water": {
+    "direct_usage": {
+      "shower_time_min": 15,
+      "baths": 1,
+      "dishwashing": {
+        "handwash_min": 5,
+        "dishwasher_loads": 2
+      },
+      "laundry_loads": 3,
+      "water_temp": "Warm",
+      "outdoor_use_min": 20
+    },
+    "conservation": {
+      "shorter_showers": false,
+      "full_loads_only": true,
+      "leak_fixes": true,
+      "rainwater_collection": true,
+      "greywater_reuse": true
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "user_id": "user_001",
+  "date": "2025-05-31",
+  "transportation": {
+    "primary_mode": "Walked",
+    "distance_km": 3,
+    "traffic": "Light",
+    "secondary_trips": ["Recreation"],
+    "ride_sharing": false,
+    "delivery_services": []
+  },
+  "energy_home": {
+    "heating_cooling": null,
+    "hot_water": {
+      "shower_min": null,
+      "baths": null,
+      "laundry_loads": null
+    },
+    "electronics": {
+      "screen_time_hrs": null,
+      "gaming_hrs": null,
+      "work_equipment_hrs": null
+    },
+    "lighting": null
+  },
+  "special_activities": ["Appliance-heavy activities"],
+  "food_consumption": {
+    "meals": {
+      "breakfast": "Skipped",
+      "lunch": "Home Cooked",
+      "dinner": "Restaurant",
+      "snacks": "Packaged"
+    },
+    "meat_servings": {
+      "beef": 1,
+      "pork": 0,
+      "chicken": 0
+    },
+    "plant_based_meals": 1,
+    "local_organic_pct": 40,
+    "food_waste": "Moderate"
+  },
+  "purchases": {
+    "online_orders": 0,
+    "package_size": "None",
+    "in_store": "Local",
+    "impulse": ["Clothing"],
+    "sustainable_choices": ["Reusable bags"]
+  },
+  "waste": {
+    "general": "Medium bag",
+    "recycling": "Moderate",
+    "composting": "Small amount",
+    "special": []
+  },
+  "plastic": {
+    "single_use": {
+      "water_bottles": 1,
+      "food_containers": 1,
+      "bags": 2
+    },
+    "avoided_plastics_count": 2,
+    "packaging_waste": "Moderate"
+  },
+  "water": {
+    "direct_usage": {
+      "shower_time_min": 6,
+      "baths": 0,
+      "dishwashing": {
+        "handwash_min": 10,
+        "dishwasher_loads": 0
+      },
+      "laundry_loads": 1,
+      "water_temp": "Cold",
+      "outdoor_use_min": 5
+    },
+    "conservation": {
+      "shorter_showers": true,
+      "full_loads_only": false,
+      "leak_fixes": false,
+      "rainwater_collection": false,
+      "greywater_reuse": false
+    }
+  }
+}
