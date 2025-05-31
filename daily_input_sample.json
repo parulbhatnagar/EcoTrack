@@ -1,0 +1,89 @@
+{
+  "user_id": "user_001",
+  "date": "2025-05-28",
+  "transportation": {
+    "primary_mode": "Car",
+    "distance_km": 15,
+    "passengers": 1,
+    "traffic": "Heavy",
+    "secondary_trips": ["Errands"],
+    "ride_sharing": true,
+    "delivery_services": ["Food"]
+  },
+  "energy_home": {
+    "heating_cooling": "More",
+    "hot_water": {
+      "shower_min": 12,
+      "baths": 0,
+      "laundry_loads": 1
+    },
+    "electronics": {
+      "screen_time_hrs": 6,
+      "gaming_hrs": 1,
+      "work_equipment_hrs": 4
+    },
+    "lighting": "LED"
+  },
+  "special_activities": [
+    "Home office equipment usage",
+    "Appliance-heavy activities"
+  ],
+  "food_consumption": {
+    "meals": {
+      "breakfast": "Home Cooked",
+      "lunch": "Packed from Home",
+      "dinner": "Home Cooked",
+      "snacks": "Local/Homemade"
+    },
+    "meat_servings": {
+      "beef": 0,
+      "pork": 0,
+      "chicken": 1
+    },
+    "plant_based_meals": 2,
+    "local_organic_pct": 60,
+    "food_waste": "Small amount"
+  },
+  "purchases": {
+    "online_orders": 1,
+    "package_size": "Medium",
+    "in_store": "Local",
+    "impulse": ["None"],
+    "sustainable_choices": ["Reusable bags", "Local products"]
+  },
+  "waste": {
+    "general": "Medium bag",
+    "recycling": "Moderate",
+    "composting": "Small amount",
+    "special": ["Batteries"]
+  },
+  "plastic": {
+    "single_use": {
+      "water_bottles": 0,
+      "food_containers": 1,
+      "bags": 0
+    },
+    "avoided_plastics_count": 3,
+    "packaging_waste": "Moderate"
+  },
+  "water": {
+    "direct_usage": {
+      "shower_time_min": 10,
+      "baths": 0,
+      "dishwashing": {
+        "handwash_min": 10,
+        "dishwasher_loads": 1
+      },
+      "laundry_loads": 1,
+      "water_temp": "Cold",
+      "outdoor_use_min": 10
+    },
+    "conservation": {
+      "shorter_showers": true,
+      "full_loads_only": true,
+      "leak_fixes": false,
+      "rainwater_collection": false,
+      "greywater_reuse": false
+    }
+  }
+}
