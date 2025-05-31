@@ -10,3 +10,11 @@ The RAG pipeline operates in three steps. First, user data—like a Bangalore us
 
 **IBM watsonx.ai Querying with Granite-3.2-8B-Instruct:**  
 IBM watsonx.ai leverages the **Granite-3.2-8B-Instruct** model—an 8-billion-parameter, long-context, instruction-tuned language model with advanced reasoning and summarization capabilities. This model queries the retrieved context to generate actionable outputs. For instance, after retrieving data on Bangalore’s water scarcity, Granite-3.2-8B-Instruct might suggest: “Shorten your 6-minute shower to 4 minutes to save 20 liters daily.” The model ensures suggestions are practical and localized, drawing from the embedded data to recommend offsets like supporting regional reforestation initiatives. This integration of RAG with watsonx.ai and Granite-3.2-8B-Instruct ensures EcoTrack delivers precise, region-specific recommendations, supporting SDG 13.2 (integrating climate measures) and 13.3 (raising awareness) by empowering users with tailored climate actions.
+
+**Selection of RAG Data Sources:**  
+For the actual project, the process and criteria for selecting RAG data sources are comprehensively documented and maintained in the following GitHub resources:
+- [RAG Source Selection Criteria](https://github.com/parulbhatnagar/EcoTrack/blob/main/RAGDatasources/RAGSourceSelectionCriteria.md)
+- [Impact Score Data Sources](https://github.com/parulbhatnagar/EcoTrack/blob/main/RAGDatasources/ImpactScore.md)
+- [Green Actions & Offsets Data Sources](https://github.com/parulbhatnagar/EcoTrack/blob/main/RAGDatasources/GreenActionsAndOffsets.md)
+
+These documents ensure transparency, reproducibility, and scalability in data source management as EcoTrack evolves from PoC to a full-scale solution.
