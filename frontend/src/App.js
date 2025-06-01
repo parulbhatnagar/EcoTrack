@@ -5,7 +5,11 @@ import merge from "base-shell/lib/utils/config";
 import _config from "./config";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
-import { AccountCircleOutlined, ComputerOutlined } from "@material-ui/icons";
+import {
+  AssessmentOutlined,
+  AccountCircleOutlined,
+  ComputerOutlined,
+} from "@material-ui/icons";
 import EcoOutlinedIcon from "@material-ui/icons/EcoOutlined";
 import CalendarTodayOutlinedIcon from "@material-ui/icons/CalendarTodayOutlined";
 import { withRouter } from "react-router-dom";
@@ -72,7 +76,7 @@ class AppComponent extends Component {
             }}
           />
           <SpeedDialAction
-            icon={<EcoOutlinedIcon />}
+            icon={<AssessmentOutlined />}
             tooltipTitle="Weekly Eco Report"
             onClick={() => {
               this.props.history.push("/summaryWeekly");

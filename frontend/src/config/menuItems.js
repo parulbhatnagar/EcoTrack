@@ -6,8 +6,9 @@ import {
   SettingsOutlined,
   LanguageOutlined,
 } from "@material-ui/icons";
+import AssessmentOutlinedIcon from "@material-ui/icons/AssessmentOutlined";
 import EcoOutlinedIcon from "@material-ui/icons/EcoOutlined";
-import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
+import CalendarTodayOutlinedIcon from "@material-ui/icons/CalendarTodayOutlined";
 
 const getMenuItems = (props) => {
   const { appConfig, intl, locale, updateLocale } = props;
@@ -48,7 +49,7 @@ const getMenuItems = (props) => {
       value: "/summaryWeekly",
       visible: isAuthorised,
       primaryText: intl.formatMessage({ id: "summaryWeekly" }),
-      leftIcon: <EcoOutlinedIcon />,
+      leftIcon: <AssessmentOutlinedIcon />,
     },
     {
       value: "/actionableSuggestions",
