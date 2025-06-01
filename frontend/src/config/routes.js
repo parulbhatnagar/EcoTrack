@@ -7,6 +7,7 @@ import ActionableSuggestions from "../pages/ActionableSuggestions/ActionableSugg
 import Impact from "../pages/Impact/Impact";
 import PersonalSummaryDaily from "../pages/PersonalSummaryDaily/PersonalSummaryDaily";
 import SummaryWeekly from "../pages/SummaryWeekly/SummaryWeekly";
+import SocialHub from "../pages/SocialHub/SocialHub";
 
 const routes = [
   <Route path="/profile" exact component={Profile} />,
@@ -18,6 +19,7 @@ const routes = [
     exact
     component={ActionableSuggestions}
   />,
+  <Route path="/socialHub" exact component={SocialHub} />,
 ];
 
 export default routes;

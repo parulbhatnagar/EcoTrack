@@ -7,6 +7,7 @@ const messages = defineMessages({
   summaryWeekly: "Weekly Eco Report",
   impact: "Daily Eco Score",
   actionableSuggestions: "Green Actions & Offsets",
+  socialHub: "Social Hub",
   page_not_found: "Page not found",
   settings: "Settings",
   language: "Language",

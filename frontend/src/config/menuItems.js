@@ -3,6 +3,7 @@ import allLocales from "./locales";
 import {
   AccountCircleOutlined,
   ComputerOutlined,
+  GroupOutlined,
   SettingsOutlined,
   LanguageOutlined,
 } from "@material-ui/icons";
@@ -56,6 +57,12 @@ const getMenuItems = (props) => {
       visible: isAuthorised,
       primaryText: intl.formatMessage({ id: "actionableSuggestions" }),
       leftIcon: <ComputerOutlined />,
+    },
+    {
+      value: "/socialHub",
+      visible: isAuthorised,
+      primaryText: intl.formatMessage({ id: "socialHub" }),
+      leftIcon: <GroupOutlined />,
     },
     {
       divider: true,

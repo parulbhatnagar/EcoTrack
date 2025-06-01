@@ -12,6 +12,7 @@ import {
 } from "@material-ui/icons";
 import EcoOutlinedIcon from "@material-ui/icons/EcoOutlined";
 import CalendarTodayOutlinedIcon from "@material-ui/icons/CalendarTodayOutlined";
+import GroupOutlinedIcon from "@material-ui/icons/GroupOutlined";
 import { withRouter } from "react-router-dom";
 import { Avatar } from "@material-ui/core";
 
@@ -87,6 +88,13 @@ class AppComponent extends Component {
             tooltipTitle="Green Actions & Offsets"
             onClick={() => {
               this.props.history.push("/actionableSuggestions");
+            }}
+          />
+          <SpeedDialAction
+            icon={<GroupOutlinedIcon />}
+            tooltipTitle="Social Hub"
+            onClick={() => {
+              this.props.history.push("/socialHub");
             }}
           />
         </SpeedDial>

@@ -31,6 +31,19 @@ const data = {
     "Food production causes 26% of global greenhouse gas emissions—wasting less food makes a real difference.",
     "By 2030, global water demand will exceed supply by 40%—every drop you save matters.",
   ],
+  socialHubUrls: [
+    {
+      name: "Eco Tracker App's Code Repo",
+      description: "Eco Tracker - Your Personal Environment Eco Tracker",
+      url: "https://github.com/parulbhatnagar/EcoTrack",
+    },
+    {
+      name: "Eco Tracker App",
+      description: "Eco Tracker - Your Personal Environment Eco Tracker",
+      url: "https://sarjunmca2014.github.io",
+    },
+    // Add more URLs here if needed
+  ],
 };
 
 export default data;
