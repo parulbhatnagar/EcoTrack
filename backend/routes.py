@@ -8,6 +8,7 @@ import ast
 from collections import Counter, defaultdict
 import statistics
 from models.suggestionsRagModel import EnvironmentalSuggestionGenerator
+from models.laymanScoreGivenContextRag import LaymanScoreForUser
 
 dailyinput_bp = Blueprint('dailyinput', __name__)
 
@@ -122,20 +123,14 @@ def get_user_impact(user_id):
     if not user_data:
         return jsonify({"error": "User data not found in daily input or profile."}), 404
 
-    # print(user_data)
+    # print(str(user_data))
     query = create_query(user_data)
-    query = "What is the Impact Coefficients & 1 day layman score for a daily activity for " + query + ". Stricty give response as given in prompt"
 
-    # --- RAG implementation stub for impact ---
-    assistant = WatsonxEnvironmentalDailyScore(
-        api_key="MlJwNH1p61gypsRUpRTyz_RB50TrrhTqfC6iofDY-LJa",
-        project_id="1b38f253-5ae2-4a73-b1b2-550d6b32fdd0"
-    )
-
-    response = assistant.get_daily_score(query)
+    generator = LaymanScoreForUser(query)
+    generator.run_pipeline()
+    response = generator.get_suggestion("What is the Impact Coefficients & 1 day layman score for a daily activity for the person? Stricty give response as given in prompt")
+    
     print(response)
-    # parsed_data = json.loads(response)
-    # print(parsed_data)
     return jsonify(response), 200
 
 
@@ -187,24 +182,17 @@ def get_summary(user_id):
 
     # print(user_entries)
     # Get the average summaries of all the rows
-    user_average_data = average_summary(user_entries) 
-    print("\n")
-    print(user_average_data)
-    query = create_summary(user_data)
-    query = "What is the Impact Coefficients & layman score for a total activity for " + query + ". Give a Summary for how a person has contributed to environmental footprinting. Give response as a json"
+    total_data=""
+    for data in user_entries:
+        query = create_query(data)
+        total_data=total_data+" "+query
 
-    # --- RAG implementation stub for impact ---
-    assistant = WatsonxEnvironmentalDailyScore(
-        api_key="MlJwNH1p61gypsRUpRTyz_RB50TrrhTqfC6iofDY-LJa",
-        project_id="1b38f253-5ae2-4a73-b1b2-550d6b32fdd0"
-    )
+    generator = LaymanScoreForUser(total_data)
+    generator.run_pipeline()
+    response = generator.get_suggestion("What is the summary layman score and overall score for a week for air, water and land for the person given the data? Stricty give response as given in prompt")
 
-    response = assistant.get_daily_score(query)
-
-    print(response)
-
-    save_json_to_csv(summary_result, SUMMARY_CSV)
-    return jsonify(summary_result), 200
+    # save_json_to_csv(summary_result, SUMMARY_CSV)
+    return jsonify(response), 200
 
 @dailyinput_bp.route('/api/suggestions/<user_id>', methods=['GET'])
 def get_suggestions(user_id):
