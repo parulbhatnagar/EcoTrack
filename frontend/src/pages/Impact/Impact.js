@@ -96,15 +96,16 @@ const ImpactPage = ({ intl }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // axios
-    //   .get(endpoint.getDailySummary)
-    //   .then((res) => {
-    //     setSummary(res.data);
-    //     setLoading(false);
-    //   })
-    //   .catch(() => setLoading(false));
-    setSummary(dailySummaryData);
-    setLoading(false);
+    axios
+      .get(endpoint.getDailySummary)
+      .then((res) => {
+        setSummary(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setSummary(dailySummaryData);
+        setLoading(false);
+      });
   }, []);
 
   return (
