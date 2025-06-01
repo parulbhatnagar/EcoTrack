@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { dailySummaryData, endpoint } from "../../config/api";
 import data from "../../data/msf";
+import { parseSummaryString } from "../../utils";
 
 const ecoTips = data.ecoTips || [];
 const useStyles = makeStyles((theme) => ({
@@ -112,11 +113,11 @@ const ImpactPage = ({ intl }) => {
     axios
       .get(endpoint.getDailySummary)
       .then((res) => {
-        setSummary(res.data);
+        setSummary(parseSummaryString(res.data));
         setLoading(false);
       })
       .catch(() => {
-        setSummary(dailySummaryData);
+        setSummary(parseSummaryString(dailySummaryData));
         setLoading(false);
       });
   }, []);
