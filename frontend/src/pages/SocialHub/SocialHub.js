@@ -3,7 +3,6 @@ import { injectIntl } from "react-intl";
 import Page from "material-ui-shell/lib/containers/Page/Page";
 import Scrollbar from "material-ui-shell/lib/components/Scrollbar";
 import {
-  Avatar,
   Card,
   CardActions,
   CardContent,
@@ -41,10 +40,9 @@ const SocialHubPage = ({ intl }) => {
               style={{ marginTop: 0 }}
             >
               {socialHubUrls.map((item, idx) => (
-                <Grid item xs={12} md={6} key={idx}>
+                <Grid item xs={12} md={12} key={idx}>
                   <Card elevation={3}>
                     <CardHeader
-                      avatar={<Avatar src={item.displayPicture} />}
                       title={item.name}
                       subheader={item.description}
                     />
