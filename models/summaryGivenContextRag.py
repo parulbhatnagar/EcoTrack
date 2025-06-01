@@ -23,7 +23,7 @@ import nltk
 nltk.download('averaged_perceptron_tagger_eng')
 nltk.download('punkt_tab')
 
-class LaymanScoreForUser:
+class SummaryForUser:
     def __init__(self, context):
         self.context = context
         self.credentials = {
@@ -76,14 +76,9 @@ class LaymanScoreForUser:
         )
 
         prompt_template = (
-            "You are a Bangalore environmental assistant who helps calculate impacts and "
-            "gives a Layman score for each category: air, water, land. "
-            "Give me just the final output in the format below:\n\n"
-            "Air: Layman Score/100 (details in single line),\n"
-            "Water: Layman Score/100 (details in single line),\n"
-            "Land: Layman Score/100 (details in single line),\n"
-            "Overall Score: Layman Score/100.\n\n"
-            "{question}"
+            "Give the overall summary of the user whose data is given as context. "
+            "Summarize the environmental impact of the data on air, water, and land, "
+            "and provide the summary in at least 300 words."
         )
         prompt = ChatPromptTemplate.from_template(prompt_template)
 
@@ -91,7 +86,7 @@ class LaymanScoreForUser:
             return "\n\n".join([d.page_content for d in docs])
 
         self.llm_chain = (
-            {"context": self.retriever | format_docs, "question": RunnablePassthrough()}
+            {"context": self.retriever | format_docs}
             | prompt
             | llm
             | StrOutputParser()

@@ -99,13 +99,15 @@ class EnvironmentalSuggestionGenerator:
             project_id=self.project_id,
             params=parameters
         )
-        prompt_template = """Generate a summary of the context that answers the question. Explain the answer in multiple steps if possible.
-Answer style should match the context. Ideal Answer Length 2-3 sentences.\n\nQuestion: {question}\nAnswer:"""
+        prompt_template =(
+            "You are a Bangalore environmental assistant who helps give suggestions "
+            "to improve pollution air, water, land. "
+            "Givinn g reponse in 200 words")
         prompt = ChatPromptTemplate.from_template(prompt_template)
         def format_docs(docs):
             return "\n\n".join([d.page_content for d in docs])
         self.llm_chain = (
-            {"context": self.retriever | format_docs, "question": RunnablePassthrough()}
+            {"context": self.retriever | format_docs}
             | prompt
             | llm
             | StrOutputParser()
@@ -124,16 +126,4 @@ Answer style should match the context. Ideal Answer Length 2-3 sentences.\n\nQue
     def run_pipeline(self):
         self.create_or_load_vectorstore()
         self.initialize_llm_chain()
-
-if __name__ == "__main__":
-    pdf_paths = [
-        "./RAGDatasources/SuggestionRAGStaticDataSources/53326-001-eia-en_8.pdf",
-        "./RAGDatasources/SuggestionRAGStaticDataSources/BCAP_FullReport_091224.pdf",
-        "./RAGDatasources/SuggestionRAGStaticDataSources/metro-paper-empri - converted.pdf",
-        "./RAGDatasources/SuggestionRAGStaticDataSources/source_apportionment_study.pdf"
-    ]
-    question = "What are the key recommendations for reducing urban air pollution?"
-    generator = EnvironmentalSuggestionGenerator(pdf_paths)
-    generator.run_pipeline()
-    result = generator.get_suggestion(question)
-    print("Response:", result)
+    

@@ -3,12 +3,13 @@ import csv
 import json
 from flask import Blueprint, request, jsonify, Response
 import requests
-from models.dailyScoreChatModel import WatsonxEnvironmentalDailyScore
+from models.summaryGivenContextRag import SummaryForUser
 import ast
 from collections import Counter, defaultdict
 import statistics
 from models.suggestionsRagModel import EnvironmentalSuggestionGenerator
 from models.laymanScoreGivenContextRag import LaymanScoreForUser
+from models.dailyScoreChatModel import WatsonxEnvironmentalDailyScore
 
 dailyinput_bp = Blueprint('dailyinput', __name__)
 
@@ -189,25 +190,34 @@ def get_summary(user_id):
         query = create_query(data)
         total_data=total_data+" "+query
 
-    generator = LaymanScoreForUser(total_data)
-    generator.run_pipeline()
-    response = generator.get_suggestion("What is the summary layman score and overall score for a week for air, water and land for the person given the data? Stricty give response as given in prompt")
-    
+    # print(total_data)
+    # generator = SummaryForUser(total_data)
+    # generator.run_pipeline()
+    # response = generator.get_suggestion("Summarize the environmental impact summary for air, water and land for the person given the weekly data?")
+    env_score_bot = WatsonxEnvironmentalDailyScore(
+        api_key="MlJwNH1p61gypsRUpRTyz_RB50TrrhTqfC6iofDY-LJa",
+        project_id="1b38f253-5ae2-4a73-b1b2-550d6b32fdd0"
+    )
+
+    response = env_score_bot.get_daily_score(query)
+    print(response)
     # response  for summary score of a person to be parsed to json - Parul
     # Air: Summary Layman Score - 85/100 (High levels of particulate matter due to construction activities), Water: Summary Layman Score - 92/100 (Moderate pollution with some bacterial contamination), Land: Summary Layman Score - 78/100 (Minor deforestation observed). Overall Score: 84/100.
     return jsonify(response), 200
 
 @dailyinput_bp.route('/api/suggestions/<user_id>', methods=['GET'])
 def get_suggestions(user_id):
-    URLS_DICTIONARY = {
-    "env_article": "https://timesofindia.indiatimes.com/city/bengaluru/asthma-cases-surge-thanks-to-poor-air-quality-late-diagnosis/articleshow/120905786.cms"
-    }
-
-    generator = EnvironmentalSuggestionGenerator(URLS_DICTIONARY)
+    pdf_paths = [
+        "./RAGDatasources/SuggestionRAGStaticDataSources/53326-001-eia-en_8.pdf",
+        "./RAGDatasources/SuggestionRAGStaticDataSources/BCAP_FullReport_091224.pdf",
+        "./RAGDatasources/SuggestionRAGStaticDataSources/metro-paper-empri - converted.pdf",
+        "./RAGDatasources/SuggestionRAGStaticDataSources/source_apportionment_study.pdf"
+    ]
+    question = "What are the key recommendations for reducing urban pollution?"
+    generator = EnvironmentalSuggestionGenerator(pdf_paths)
     generator.run_pipeline()
-    response = generator.get_suggestion("How is Bangalore air quality?")
-    print(response)
-    return jsonify(response), 200
+    result = generator.get_suggestion(question)
+    return jsonify(result), 200
 
 
 # Build the summary sentence

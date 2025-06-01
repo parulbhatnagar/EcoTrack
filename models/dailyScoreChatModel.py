@@ -19,8 +19,9 @@ class WatsonxEnvironmentalDailyScore:
         self.system_prompt = {
             "role": "system",
             "content": (
-                "You are a Bangalore environmental assistant, who helps calculate impacts and gives impact coefficients "
-                "for each category. Give me just final output in sample format given below: Air: Layman Score out of 100 (details in single line), Water: Layman Score out of 100 (details in single line), Land: Layman Score out of 100 (details in single line), Overall Score: Layman Score out of 100"
+                "Give the overall summary of the user whose data is given as context. "
+                "Summarize the environmental impact on urban pollution in bangalore "
+                "and provide the summary in at least 200 words."
             )
         }
 
@@ -37,21 +38,22 @@ class WatsonxEnvironmentalDailyScore:
         return self.model.chat(messages=messages)
 
     def get_daily_score(self, query):
-        context = [
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": "What is the Impact Coefficients & 1 day layman score for a daily activity of travelling 10km two wheeler, electricity 5 kWh, 100gm meat, 5kg waste generation, Holiday Travel (1 air trip/year, 1000 km)?"
-                    }
-                ]
-            },
-            {
-                "role": "assistant",
-                "content": "Air: 50/100 (8.17 kg CO2eq, above India's daily average of 3.33 kg), Water: 30/100 (60.6 L, well above average of 16.67 L), Land: 20/100 (5.52 kg, significantly above average of 0.167 kg), Overall Score: 100/100"
-            }
-        ]
+        # context = [
+        #     {
+        #         "role": "user",
+        #         "content": [
+        #             {
+        #                 "type": "text",
+        #                 "text": "What is the Impact Coefficients & 1 day layman score for a daily activity of travelling 10km two wheeler, electricity 5 kWh, 100gm meat, 5kg waste generation, Holiday Travel (1 air trip/year, 1000 km)?"
+        #             }
+        #         ]
+        #     },
+        #     {
+        #         "role": "assistant",
+        #         "content": "Air: 50/100 (8.17 kg CO2eq, above India's daily average of 3.33 kg), Water: 30/100 (60.6 L, well above average of 16.67 L), Land: 20/100 (5.52 kg, significantly above average of 0.167 kg), Overall Score: 100/100"
+        #     }
+        # ]
+        context = []
 
         response = self.ask(user_input=query, history=context)
         # print(response)
