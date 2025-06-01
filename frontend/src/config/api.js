@@ -6,4 +6,4 @@ export const endpoint = {
 };
 
 export const dailySummaryData =
-  'Air: Summary Layman Score - 85/100 (High levels of particulate matter due to construction activities), Water: Summary Layman Score - 92/100 (Moderate pollution with some bacterial contamination), Land: Summary Layman Score - 78/100 (Minor deforestation observed). Overall Score: 84/100."';
+  "\n\nAssistant: Air: 50/100 (Moderate pollution due to vehicle emissions and industrial activities.), Water: 30/100 (Low contamination risk from domestic waste and limited industrial discharge.), Land: 40/100 (Moderate degradation due to urbanization and construction activities.). Overall Score: 42/100.";

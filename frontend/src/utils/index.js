@@ -15,7 +15,8 @@ export const openUrl = (url) => window.open(url);
  */
 export const parseSummaryString = (summaryStr) => {
   const result = {};
-  const regex = /(\w+):\s*Summary Layman Score\s*-\s*([\d/]+)\s*\(([^)]+)\)/g;
+  // Match entries like: Air: 50/100 (details...)
+  const regex = /(\w+):\s*([\d/]+)\s*\(([^)]+)\)/g;
   let match;
   while ((match = regex.exec(summaryStr)) !== null) {
     const [_, key, score, details] = match;
@@ -24,8 +25,10 @@ export const parseSummaryString = (summaryStr) => {
       Details: details.trim(),
     };
   }
-  // Extract Overall Score if present
-  const overallMatch = summaryStr.match(/Overall Score:\s*([\d/]+)/);
+  // Extract Overall Score if present (handles non-breaking space and colon variants)
+  const overallMatch = summaryStr.match(
+    /Overall(?:\s|&nbsp;)*Score:\s*([\d/]+)/i
+  );
   if (overallMatch) {
     result["Overall Score"] = overallMatch[1];
   }
