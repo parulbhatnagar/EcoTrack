@@ -3,6 +3,11 @@ import csv
 import json
 from flask import Blueprint, request, jsonify, Response
 import requests
+from models.dailyScoreChatModel import WatsonxEnvironmentalDailyScore
+import ast
+from collections import Counter, defaultdict
+import statistics
+from models.suggestionsRagModel import EnvironmentalSuggestionGenerator
 
 dailyinput_bp = Blueprint('dailyinput', __name__)
 
@@ -117,20 +122,20 @@ def get_user_impact(user_id):
     if not user_data:
         return jsonify({"error": "User data not found in daily input or profile."}), 404
 
-    # --- RAG implementation stub for impact ---
-    footprint = 111.0  # dummy placeholder, replace with real logic
-    rag_status = "Amber"  # Default to Amber
-    if footprint < 80:
-        rag_status = "Green"
-    elif footprint > 130:
-        rag_status = "Red"
+    # print(user_data)
+    query = create_query(user_data)
+    query = "What is the Impact Coefficients & 1 day layman score for a daily activity for " + query + ". Stricty give response as given in prompt"
 
-    response = {
-        "user_id": user_id,
-        "footprint_kg_co2": footprint,
-        "rag_status": rag_status,  # RAG status added here
-        "description": f"Your monthly carbon footprint is {footprint} kg CO2, slightly above India's average (100 kg)."
-    }
+    # --- RAG implementation stub for impact ---
+    assistant = WatsonxEnvironmentalDailyScore(
+        api_key="MlJwNH1p61gypsRUpRTyz_RB50TrrhTqfC6iofDY-LJa",
+        project_id="1b38f253-5ae2-4a73-b1b2-550d6b32fdd0"
+    )
+
+    response = assistant.get_daily_score(query)
+    print(response)
+    # parsed_data = json.loads(response)
+    # print(parsed_data)
     return jsonify(response), 200
 
 
@@ -139,6 +144,7 @@ def get_summary(user_id):
     # Check if SUMMARY_CSV exists and has any rows (excluding header)
     summary_exists = os.path.isfile(SUMMARY_CSV)
     summary_has_rows = False
+    user_entries = []
     if summary_exists:
         with open(SUMMARY_CSV, newline='') as f:
             reader = csv.DictReader(f)
@@ -146,14 +152,9 @@ def get_summary(user_id):
             summary_has_rows = len(summary_rows) > 0
             for row in summary_rows:
                 if row.get('user_id') == user_id:
-                    return jsonify({
-                        "user_id": user_id,
-                        "summary_score": float(row.get("summary_score", 78.5)),
-                        "insight": row.get("insight", "You used public transport 4 times this week and saved 15 kg CO2!")
-                    }), 200
+                    user_entries.append(row)
 
     # Fallback to daily_input_data.csv
-    user_entries = []
     if os.path.isfile(DAILY_CSV):
         with open(DAILY_CSV, newline='') as f:
             reader = csv.DictReader(f)
@@ -184,16 +185,117 @@ def get_summary(user_id):
 
         user_entries = generated_entries
 
-    # Compute summary (basic logic)
-    public_modes = {'bus', 'metro'}
-    public_count = sum(1 for e in user_entries if e.get('transport_mode') in public_modes)
-    co2_saved = public_count * 3.75
+    # print(user_entries)
+    # Get the average summaries of all the rows
+    user_average_data = average_summary(user_entries) 
+    print("\n")
+    print(user_average_data)
+    query = create_summary(user_data)
+    query = "What is the Impact Coefficients & layman score for a total activity for " + query + ". Give a Summary for how a person has contributed to environmental footprinting. Give response as a json"
 
-    summary_result = {
-        "user_id": user_id,
-        "summary_score": 78.5,
-        "insight": f"You used public transport {public_count} times this week and saved {round(co2_saved, 1)} kg CO2!"
-    }
+    # --- RAG implementation stub for impact ---
+    assistant = WatsonxEnvironmentalDailyScore(
+        api_key="MlJwNH1p61gypsRUpRTyz_RB50TrrhTqfC6iofDY-LJa",
+        project_id="1b38f253-5ae2-4a73-b1b2-550d6b32fdd0"
+    )
+
+    response = assistant.get_daily_score(query)
+
+    print(response)
 
     save_json_to_csv(summary_result, SUMMARY_CSV)
     return jsonify(summary_result), 200
+
+@dailyinput_bp.route('/api/suggestions/<user_id>', methods=['GET'])
+def get_suggestions(user_id):
+    URLS_DICTIONARY = {
+    "env_article": "https://timesofindia.indiatimes.com/city/bengaluru/asthma-cases-surge-thanks-to-poor-air-quality-late-diagnosis/articleshow/120905786.cms"
+    }
+
+    generator = EnvironmentalSuggestionGenerator(URLS_DICTIONARY)
+    generator.run_pipeline()
+    response = generator.get_suggestion("How is Bangalore air quality?")
+    print(response)
+    return jsonify(response), 200
+
+
+# Build the summary sentence
+def create_query(record):
+
+    # Convert all stringified JSON-like fields to actual Python objects
+    for key in record:
+        if isinstance(record[key], str) and record[key].startswith(("{", "[")):
+            record[key] = ast.literal_eval(record[key])
+
+    transport = record['transportation']
+    energy = record['energy_home']
+    home_activities = record['special_activities']
+    food = record['food_consumption']
+    shopping = record['purchases']
+    waste = record['waste']
+    plastics = record['plastic']
+    water = record['water']
+
+    parts = []
+
+    # Transport
+    parts.append(
+        f"On {record['date']}, user {record['user_id']} traveled {transport['distance_km']} km by {transport['primary_mode']} "
+        f"with {transport['passengers']} passenger(s) in {transport['traffic']} traffic "
+        f"{'using ride-sharing' if transport['ride_sharing'] else 'without ride-sharing'}"
+        f"{', including trips for ' + ', '.join(transport['secondary_trips']) if transport.get('secondary_trips') else ''}"
+        f"{', and used delivery services for ' + ', '.join(transport['delivery_services']) if transport.get('delivery_services') else ''}."
+    )
+
+    # Energy
+    hw = energy['hot_water']
+    elec = energy['electronics']
+    parts.append(
+        f"Home energy use included {energy['heating_cooling']} heating/cooling, {hw['shower_min']} min showers, "
+        f"{hw['laundry_loads']} laundry load(s), and electronics usage of {elec['screen_time_hrs']} hrs screen time, "
+        f"{elec['gaming_hrs']} hrs gaming, {elec['work_equipment_hrs']} hrs work. Lighting was {energy['lighting']}."
+    )
+
+    # Special activities
+    parts.append(f"Special activities included: {', '.join(home_activities)}.")
+
+    # Food
+    meals = food['meals']
+    meat = food['meat_servings']
+    parts.append(
+        f"Meals were {meals['breakfast']} (breakfast), {meals['lunch']} (lunch), {meals['dinner']} (dinner), and {meals['snacks']} (snacks). "
+        f"Consumed {meat['chicken']} chicken serving(s), 0 pork, 0 beef, had {food['plant_based_meals']} plant-based meals, "
+        f"60% local/organic food, and food waste was {food['food_waste']}."
+    )
+
+    # Shopping
+    parts.append(
+        f"Made {shopping['online_orders']} online order(s) (size: {shopping['package_size']}), shopped locally in-store, "
+        f"impulse buys: {', '.join(shopping['impulse'])}, sustainable choices: {', '.join(shopping['sustainable_choices'])}."
+    )
+
+    # Waste
+    parts.append(
+        f"Waste generated: {waste['general']} of general waste, recycling was {waste['recycling']}, composting: {waste['composting']}, "
+        f"special items: {', '.join(waste['special'])}."
+    )
+
+    # Plastics
+    su = plastics['single_use']
+    parts.append(
+        f"Plastic use included {su['food_containers']} food container(s), avoided {plastics['avoided_plastics_count']} plastic items, "
+        f"packaging waste was {plastics['packaging_waste']}."
+    )
+
+    # Water
+    du = water['direct_usage']
+    dw = du['dishwashing']
+    cons = water['conservation']
+    parts.append(
+        f"Water usage: {du['shower_time_min']} min shower(s), {du['baths']} bath(s), {dw['handwash_min']} min handwashing, "
+        f"{dw['dishwasher_loads']} dishwasher load(s), {du['laundry_loads']} laundry load(s) with {du['water_temp']} water, "
+        f"{du['outdoor_use_min']} min outdoor use. Conservation: shorter showers - {cons['shorter_showers']}, full loads - {cons['full_loads_only']}, "
+        f"leak fixes - {cons['leak_fixes']}."
+    )
+
+    return " ".join(parts)
