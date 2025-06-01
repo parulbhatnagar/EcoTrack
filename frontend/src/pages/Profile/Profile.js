@@ -251,7 +251,7 @@ function getStepContent(step, form, handleChange, handleFileChange) {
                   value={form.primary_commute_mode}
                   onChange={handleChange}
                 >
-                  <MenuItem value="Car - Gasoline">Car (Gasoline)</MenuItem>
+                  <MenuItem value="Car - Petrol">Car (Petrol)</MenuItem>
                   <MenuItem value="Car - Hybrid">Car (Hybrid)</MenuItem>
                   <MenuItem value="Car - Electric">Car (Electric)</MenuItem>
                   <MenuItem value="Public Transit">Public Transit</MenuItem>
@@ -309,7 +309,7 @@ function getStepContent(step, form, handleChange, handleFileChange) {
                   value={form.car_fuel_type}
                   onChange={handleChange}
                 >
-                  <MenuItem value="Gasoline">Gasoline</MenuItem>
+                  <MenuItem value="Petrol">Petrol</MenuItem>
                   <MenuItem value="Hybrid">Hybrid</MenuItem>
                   <MenuItem value="Electric">Electric</MenuItem>
                   <MenuItem value="Diesel">Diesel</MenuItem>
