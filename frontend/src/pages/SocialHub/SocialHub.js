@@ -2,10 +2,28 @@ import React from "react";
 import { injectIntl } from "react-intl";
 import Page from "material-ui-shell/lib/containers/Page/Page";
 import Scrollbar from "material-ui-shell/lib/components/Scrollbar";
-import { Button, Card, CardContent, Grid, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Grid,
+  IconButton,
+} from "@material-ui/core";
+import { openUrl } from "../../utils";
 import data from "../../data/msf";
 
 const socialHubUrls = data.socialHubUrls || [];
+const renderActions = (socialNetworks) => {
+  return socialNetworks.map(({ name, url, icon }) => {
+    return (
+      <IconButton aria-label={name} key={name} onClick={() => openUrl(url)}>
+        {icon}
+      </IconButton>
+    );
+  });
+};
 
 const SocialHubPage = ({ intl }) => {
   return (
@@ -25,28 +43,14 @@ const SocialHubPage = ({ intl }) => {
               {socialHubUrls.map((item, idx) => (
                 <Grid item xs={12} md={6} key={idx}>
                   <Card elevation={3}>
-                    <CardContent>
-                      <Typography variant="h6" gutterBottom>
-                        {item.name}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        gutterBottom
-                      >
-                        {item.description}
-                      </Typography>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        href={item.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ marginTop: 12 }}
-                      >
-                        Visit
-                      </Button>
-                    </CardContent>
+                    <CardHeader
+                      avatar={<Avatar src={item.displayPicture} />}
+                      title={item.name}
+                      subheader={item.description}
+                    />
+                    <CardActions disableSpacing>
+                      {renderActions(item.socialNetworks)}
+                    </CardActions>
                   </Card>
                 </Grid>
               ))}

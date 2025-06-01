@@ -1,3 +1,12 @@
+import React from "react";
+import {
+  LinkedIn,
+  GitHub,
+  Twitter,
+  Facebook,
+  EmailOutlined,
+} from "@material-ui/icons";
+
 const data = {
   landingPage: {
     displayPicture: "icons/icon-512x512.png",
@@ -33,15 +42,38 @@ const data = {
   ],
   socialHubUrls: [
     {
-      name: "Eco Tracker App's Code Repo",
-      description: "Eco Tracker - Your Personal Environment Eco Tracker",
-      url: "https://github.com/parulbhatnagar/EcoTrack",
+      name: "Eco Tracker",
+      description: "Your Personal Environmental Impact Tracker",
+      displayPicture: "",
+      socialNetworks: [
+        {
+          name: "LinkedIn",
+          url: "https://in.linkedin.com/in/UserId",
+          icon: <LinkedIn />,
+        },
+        {
+          name: "GitHub",
+          url: "https://github.com/UserId",
+          icon: <GitHub />,
+        },
+        {
+          name: "Twitter",
+          url: "https://twitter.com/UserId",
+          icon: <Twitter />,
+        },
+        {
+          name: "Facebook",
+          url: "https://fb.me/UserId",
+          icon: <Facebook />,
+        },
+        {
+          name: "Email",
+          url: "mailto:UserId@gmail.com",
+          icon: <EmailOutlined />,
+        },
+      ],
     },
-    {
-      name: "Eco Tracker App",
-      description: "Eco Tracker - Your Personal Environment Eco Tracker",
-      url: "https://sarjunmca2014.github.io",
-    },
+
     // Add more URLs here if needed
   ],
 };
