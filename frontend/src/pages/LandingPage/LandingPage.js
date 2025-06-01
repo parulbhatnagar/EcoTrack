@@ -24,7 +24,7 @@ export default function (props) {
     >
       <Card>
         <CardHeader
-          avatar={<Avatar src="" />}
+          avatar={<Avatar src="./icons/icon-512x512.png" />}
           title={title}
           subheader={subtitle}
         />
