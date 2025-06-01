@@ -3,6 +3,8 @@ export const endpoint = {
   saveProfileData: `${API_BASE_URL}/profile`,
   saveDailyEcoData: `${API_BASE_URL}/dailyinput`,
   getDailySummary: `${API_BASE_URL}/impact/user_001`, // user_002 also has some data
+  summary: `${API_BASE_URL}/summary/user_001`, // user_002 also has some data
+  suggestions: `${API_BASE_URL}/suggestions/user_001`, // user_002 also has some data
 };
 
 export const dailySummaryData =
