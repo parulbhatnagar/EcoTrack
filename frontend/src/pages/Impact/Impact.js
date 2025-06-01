@@ -11,7 +11,9 @@ import {
 } from "@material-ui/core";
 import axios from "axios";
 import { dailySummaryData, endpoint } from "../../config/api";
+import data from "../../data/msf";
 
+const ecoTips = data.ecoTips || [];
 const useStyles = makeStyles((theme) => ({
   ringContainer: {
     display: "flex",
@@ -94,6 +96,17 @@ const ImpactPage = ({ intl }) => {
   const classes = useStyles();
   const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [tipIndex, setTipIndex] = useState(0);
+
+  useEffect(() => {
+    let tipInterval;
+    if (loading) {
+      tipInterval = setInterval(() => {
+        setTipIndex((prev) => (prev + 1) % ecoTips.length);
+      }, 5000); // Change tip every 2 seconds
+    }
+    return () => clearInterval(tipInterval);
+  }, [loading]);
 
   useEffect(() => {
     axios
@@ -117,10 +130,20 @@ const ImpactPage = ({ intl }) => {
           {loading ? (
             <Box
               display="flex"
-              style={{ display: "flex", justifyContent: "center" }}
-              mt={4}
+              flexDirection="column"
+              justifyContent="center"
+              alignItems="center"
+              minHeight="60vh"
+              width="100%"
             >
               <CircularProgress />
+              <Typography
+                variant="subtitle1"
+                align="center"
+                style={{ margin: 20, maxWidth: 400 }}
+              >
+                {ecoTips[tipIndex]}...
+              </Typography>
             </Box>
           ) : !summary ? (
             <Typography color="error" align="center" mt={4}>

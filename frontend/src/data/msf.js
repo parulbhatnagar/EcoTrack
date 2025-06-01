@@ -21,6 +21,16 @@ const data = {
   actionableSuggestions: {
     primary: ["Action 1", "Action 2", "Action 3"],
   },
+  ecoTips: [
+    "One person switching to public transport for a year can cut over a ton of CO₂ emissions.",
+    "Every minute you shorten your shower can save up to 10 liters of water—small changes add up.",
+    "Choosing a plant-based meal just once a week can reduce your annual carbon footprint by hundreds of kilograms.",
+    "Air pollution claims nearly 7 million lives each year—your daily choices can help clear the air.",
+    "72% of global consumers are willing to pay more for sustainable products—your actions inspire change.",
+    "The world loses 10 million hectares of forest every year—reducing paper and meat consumption helps protect them.",
+    "Food production causes 26% of global greenhouse gas emissions—wasting less food makes a real difference.",
+    "By 2030, global water demand will exceed supply by 40%—every drop you save matters.",
+  ],
 };
 
 export default data;
