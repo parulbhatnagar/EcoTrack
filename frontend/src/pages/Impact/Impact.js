@@ -99,6 +99,11 @@ const ImpactPage = ({ intl }) => {
   const [loading, setLoading] = useState(true);
   const [tipIndex, setTipIndex] = useState(0);
 
+  const handleErrorResponse = (error) => {
+    setSummary(parseSummaryString(dailySummaryData));
+    setLoading(false);
+  };
+
   useEffect(() => {
     let tipInterval;
     if (loading) {
@@ -113,12 +118,15 @@ const ImpactPage = ({ intl }) => {
     axios
       .get(endpoint.getDailySummary)
       .then((res) => {
-        setSummary(parseSummaryString(res.data));
-        setLoading(false);
+        try {
+          setSummary(parseSummaryString(res.data));
+          setLoading(false);
+        } catch (error) {
+          handleErrorResponse(error);
+        }
       })
-      .catch(() => {
-        setSummary(parseSummaryString(dailySummaryData));
-        setLoading(false);
+      .catch((error) => {
+        handleErrorResponse(error);
       });
   }, []);
 
