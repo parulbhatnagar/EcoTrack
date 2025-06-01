@@ -1,5 +1,5 @@
 from flask import Flask
-from dailyinput.routes import dailyinput_bp
+from backend.routes import dailyinput_bp
 
 app = Flask(__name__)
 app.register_blueprint(dailyinput_bp)
