@@ -128,8 +128,10 @@ def get_user_impact(user_id):
 
     generator = LaymanScoreForUser(query)
     generator.run_pipeline()
-    response = generator.get_suggestion("What is the Impact Coefficients & 1 day layman score for a daily activity for the person? Stricty give response as given in prompt")
-    
+    response = generator.get_suggestion("What is the Impact Coefficients & 1 day layman score for air, water and land for a daily activity for the person? Stricty give response as given in prompt")
+    # response  for daily score of a person to be parsed to json - Parul
+    # Air: 85/100 (High air pollution due to traffic congestion and industrial activities.),Water: 70/100 (Moderate water pollution from domestic sewage and industrial effluents.),Land: 65/100 (Moderate land degradation due to urbanization and construction activities.).Overall Score: 72/100.
+
     print(response)
     return jsonify(response), 200
 
@@ -190,8 +192,9 @@ def get_summary(user_id):
     generator = LaymanScoreForUser(total_data)
     generator.run_pipeline()
     response = generator.get_suggestion("What is the summary layman score and overall score for a week for air, water and land for the person given the data? Stricty give response as given in prompt")
-
-    # save_json_to_csv(summary_result, SUMMARY_CSV)
+    
+    # response  for summary score of a person to be parsed to json - Parul
+    # Air: Summary Layman Score - 85/100 (High levels of particulate matter due to construction activities), Water: Summary Layman Score - 92/100 (Moderate pollution with some bacterial contamination), Land: Summary Layman Score - 78/100 (Minor deforestation observed). Overall Score: 84/100.
     return jsonify(response), 200
 
 @dailyinput_bp.route('/api/suggestions/<user_id>', methods=['GET'])
